@@ -2,6 +2,7 @@ import requests
 import json
 import shelve
 import os
+import re
 from collections import namedtuple
 from InstagramPost import InstagramPost
 
@@ -51,7 +52,7 @@ def download_recent_insta_posts(db):
 				if post.instagram_url.find('/'):
 					img_file = post.instagram_url.rsplit('/', 1)[1]
 					img_file = img_file[0:img_file.index("?")]
-				img_path = os.path.join(FOLDER, img_file)
+				img_path = os.path.join(settings.folder, img_file)
 				img_resp = requests.get(post.instagram_url, allow_redirects=True)
 				open(img_path, 'wb').write(img_resp.content)
 				wrote_something = True
@@ -68,16 +69,30 @@ def upload_new_posts(db):
 		post = db[key]
 		if post.fediverse_url == "":
 			new_url = post_to_fediverse(post)
-			if len(new_url) > 0:
+			if new_url and len(new_url) > 0:
 				uploaded_something = True
 				post.fediverse_url = new_url
 				db[key] = post
 	if not uploaded_something:
 		print("No new posts to upload to fediverse")
 
+def find_cw(caption):
+	is_cw = False
+	cw_text = ""
+	#Look for the exact hashtag #CW or #cw
+	if re.search(r"#[cC][wW]\s", caption):
+		is_cw = True
+	##Look for a hashtag like #CW_Food
+	match = re.search(r"#[cC][wW]_([\w]+)\b", caption)
+	if match:
+		cw_text = match.group(1)
+
+	return is_cw, cw_text
+
 def post_to_fediverse(post_data):
 	print("Uploading post " + post_data.id)
 	filename = post_data.local_path
+	is_cw, cw_text = find_cw(post_data.photo_caption)
 	url = settings.instance_url + '/api/v1/media'
 	headers = {'Authorization': 'Bearer '+ settings.access_token}
 	files = {'file': open(os.path.join(settings.folder, filename),'rb')}
@@ -91,8 +106,9 @@ def post_to_fediverse(post_data):
 			'status': post_data.photo_caption, 
 			#This works fine for one image, but I'd probably want to send JSON for >1
 			'media_ids[]': [media_id], 
-			'visibility':settings.post_visibility
-			#'spoiler_text' : 'This is a CW'
+			'visibility':settings.post_visibility,
+			'sensitive': is_cw,
+			'spoiler_text' : cw_text
 		}
 		resp = requests.post(status_url, data=formData, headers=headers)
 		post_data = json2obj(resp.text)
