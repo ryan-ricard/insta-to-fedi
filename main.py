@@ -32,9 +32,7 @@ def download_recent_insta_posts(db):
 		ig_did='651809BF-2C55-43A1-AE41-4542DAB365D0',
 		mid='XHiU7QAEAAFT6OtdrqvLBFEGFi1e',
 		rur='FTW',
-		sessionid='1116447823:qgrqYpbB4T9HAm:5',
-		shbid='10630',
-		shbts='1598618785.0328875'
+		sessionid='1116447823:qgrqYpbB4T9HAm:5'
 	)
 
 
