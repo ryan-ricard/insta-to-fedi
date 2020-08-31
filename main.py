@@ -34,8 +34,7 @@ def download_recent_insta_posts(db):
 		rur='FTW',
 		sessionid='1116447823:qgrqYpbB4T9HAm:5',
 		shbid='10630',
-		shbts='1598618785.0328875',
-		urlgen='"{\"65.128.172.44\": 209\054 \"65.128.249.105\": 209}:1kCitl:jUmoyE5vWK7lGnUV1Zb7ctVWT8Y"'
+		shbts='1598618785.0328875'
 	)
 
 
