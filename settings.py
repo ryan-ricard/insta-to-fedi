@@ -17,5 +17,5 @@ access_token = 'PASTE_ACCESS_TOKEN_HERE'
 post_visibility = 'public'
 
 ##Optional: you can copy the sessionid and ds_user_id from a logged-in browser session
-ds_user_id = '1116447823'
-sessionid = '1116447823:WM3JGK2JKMyLUy:24'
+ds_user_id = ''
+sessionid = ''
