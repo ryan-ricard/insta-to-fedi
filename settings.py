@@ -1,7 +1,7 @@
 ##Modify this file or create a file called local_settings.py
 
 ## Location to save images and post data from Instagram
-folder = "~/Instagram"
+folder = '~/Instagram'
 
 ##Instagram Account to download omit at-sign
 instagram_username = 'shedd_aquarium'
@@ -15,3 +15,7 @@ access_token = 'PASTE_ACCESS_TOKEN_HERE'
 
 ##Visibility of fediverse posts, must be one of ['direct', 'private', 'unlisted', 'public']
 post_visibility = 'public'
+
+##Optional: you can copy the sessionid and ds_user_id from a logged-in browser session
+ds_user_id = '1116447823'
+sessionid = '1116447823:WM3JGK2JKMyLUy:24'

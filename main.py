@@ -26,10 +26,12 @@ def main():
 def download_recent_insta_posts(db):
 	wrote_something = False
 
-	cookies = dict(
-		ds_user_id='1116447823',
-		sessionid='1116447823:qgrqYpbB4T9HAm:5'
-	)
+	cookies = {}
+	if len(settings.ds_user_id) > 0 and len(settings.sessionid) > 0:
+		cookies = dict(
+			ds_user_id=settings.ds_user_id,
+			sessionid=settings.sessionid
+		)
 
 
 	resp = requests.get('https://www.instagram.com/'
