@@ -26,9 +26,24 @@ def main():
 def download_recent_insta_posts(db):
 	wrote_something = False
 
+	cookies = dict(
+		csrftoken='u6NXQScZzoi97cpTRK58Ah1zZAovnVdi',
+		ds_user_id='1116447823',
+		ig_did='651809BF-2C55-43A1-AE41-4542DAB365D0',
+		mid='XHiU7QAEAAFT6OtdrqvLBFEGFi1e',
+		rur='FTW',
+		sessionid='1116447823:qgrqYpbB4T9HAm:5',
+		shbid='10630',
+		shbts='1598618785.0328875',
+		urlgen='"{\"65.128.172.44\": 209\054 \"65.128.249.105\": 209}:1kCitl:jUmoyE5vWK7lGnUV1Zb7ctVWT8Y"'
+	)
+
+
 	resp = requests.get('https://www.instagram.com/'
 		+settings.instagram_username+
-		'/?__a=1')
+		'/?__a=1',
+		cookies=cookies
+    )
 
 	if resp.status_code == 200:
 		insta_data = json2obj(resp.text)
