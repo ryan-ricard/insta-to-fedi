@@ -26,9 +26,19 @@ def main():
 def download_recent_insta_posts(db):
 	wrote_something = False
 
+	cookies = {}
+	if len(settings.ds_user_id) > 0 and len(settings.sessionid) > 0:
+		cookies = dict(
+			ds_user_id=settings.ds_user_id,
+			sessionid=settings.sessionid
+		)
+
+
 	resp = requests.get('https://www.instagram.com/'
 		+settings.instagram_username+
-		'/?__a=1')
+		'/?__a=1',
+		cookies=cookies
+    )
 
 	if resp.status_code == 200:
 		insta_data = json2obj(resp.text)
