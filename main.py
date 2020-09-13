@@ -87,14 +87,15 @@ def upload_new_posts(db):
 		print("No new posts to upload to fediverse")
 
 def find_cw(caption):
-	is_cw = False
+	is_cw = 'false'
 	cw_text = ""
 	#Look for the exact hashtag #CW or #cw
-	if re.search(r"#[cC][wW]\s", caption):
-		is_cw = True
+	if re.search(r"#[cC][wW]\b", caption):
+		is_cw = 'true'
 	##Look for a hashtag like #CW_Food
 	match = re.search(r"#[cC][wW]_([\w]+)\b", caption)
 	if match:
+		is_cw = 'true'
 		cw_text = match.group(1)
 
 	return is_cw, cw_text
